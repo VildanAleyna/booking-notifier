@@ -64,8 +64,9 @@ def check_mail():
 
 if __name__ == "__main__":
     # İlk test için Telegram'a direkt mesaj at
-    send_telegram_message("🚀 Test mesajı çalışıyor mu?")
+    #send_telegram_message("🚀 Test mesajı çalışıyor mu?")
 
     # Daha sonra gerçek mailleri kontrol etmek için:
-    # check_mail()
+     check_mail()
+
 
