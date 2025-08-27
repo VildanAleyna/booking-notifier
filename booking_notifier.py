@@ -13,7 +13,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     data = {"chat_id": CHAT_ID, "text": message}
-     print(f"Telegram URL: {url}")  # debug için
+    print(f"Telegram URL: {url}")  # debug için
     r = requests.post(url, data=data)
     print(" Telegram gönderim sonucu:", r.status_code, r.text)  # 🔹 LOG
 
@@ -79,4 +79,5 @@ if __name__ == "__main__":
 
     # Daha sonra gerçek mailleri kontrol etmek için:
     # check_mail()
+
 
