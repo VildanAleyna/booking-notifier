@@ -1,3 +1,4 @@
+import os
 import imaplib
 import email
 import re
@@ -68,6 +69,7 @@ if __name__ == "__main__":
 
     # Daha sonra gerçek mailleri kontrol etmek için:
      #check_mail()
+
 
 
 
