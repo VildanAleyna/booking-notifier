@@ -3,11 +3,10 @@ import email
 import re
 import requests
 
-GMAIL_USER = "divisey5252@gmail.com"
-GMAIL_PASS = "ojnwtnbvxpukdezd"
-
-TELEGRAM_TOKEN = "8119959787:AAHOybgyF36DRXcsF4QYez63_u1SIKngRRg"
-CHAT_ID = "8040302212"
+GMAIL_USER = os.getenv("GMAIL_USER")
+GMAIL_PASS = os.getenv("GMAIL_PASS")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 # Telegram'a mesaj gönderme fonksiyonu
 def send_telegram_message(message):
@@ -69,3 +68,4 @@ if __name__ == "__main__":
 
     # Daha sonra gerçek mailleri kontrol etmek için:
     # check_mail()
+
