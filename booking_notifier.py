@@ -13,18 +13,22 @@ CHAT_ID = os.getenv("CHAT_ID")
 def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     data = {"chat_id": CHAT_ID, "text": message}
-    requests.post(url, data=data)
+    r = requests.post(url, data=data)
+    print(" Telegram gönderim sonucu:", r.status_code, r.text)  # 🔹 LOG
+
 
 # Mail kontrol fonksiyonu
 def check_mail():
-    # Gmail'e bağlan
+    print(" Gmail'e bağlanılıyor...")  # 🔹 LOG
     mail = imaplib.IMAP4_SSL("imap.gmail.com")
     mail.login(GMAIL_USER, GMAIL_PASS)
+    print(" Gmail giriş başarılı")  # 🔹 LOG
     mail.select("inbox")  # Gelen kutusunu seç
 
     # Yeni gelen mailleri ara
     status, messages = mail.search(None, "UNSEEN")
     email_ids = messages[0].split()
+    print(f" Okunmamış mail sayısı: {len(email_ids)}")  # 🔹 LOG
 
     for e_id in email_ids:
         status, msg_data = mail.fetch(e_id, "(RFC822)")
@@ -33,6 +37,8 @@ def check_mail():
                 msg = email.message_from_bytes(response_part[1])
                 subject = msg["subject"]
                 sender = msg["from"]
+
+                print(f" Yeni mail -> Konu: {subject}, Gönderen: {sender}")  # 🔹 LOG
 
                 # Mailin gövdesini al
                 body = ""
@@ -53,23 +59,22 @@ def check_mail():
 
                 # Sadece booking mailleri için
                 if sender and "booking.com" in sender.lower():
-                    # Maildeki url'yi al
+                    print(" Booking mail bulundu!")  # 🔹 LOG
                     urls = re.findall(r'https?://\S+', body)
                     first_url = urls[0] if urls else "link bulunamadı"
 
                     # Telegram mesajı
-                    message = f"Dilekcim para geliyor!! Konu: {subject}\nDetaylar: {first_url}"
+                    message = f"Yeni Rezervasyonunuz bulunuyor.!! Konu: {subject}\nDetaylar: {first_url}"
                     send_telegram_message(message)
 
     mail.logout()
+    print(" Mail kontrol tamamlandı.")  # 🔹 LOG
+
 
 if __name__ == "__main__":
     # İlk test için Telegram'a direkt mesaj at
-    send_telegram_message("🚀 Test mesajı çalışıyor mu?")
+    print(" Test mesajı gönderiliyor...")  # 🔹 LOG
+    send_telegram_message(" Test mesajı çalışıyor mu?")
 
     # Daha sonra gerçek mailleri kontrol etmek için:
-     #check_mail()
-
-
-
-
+    # check_mail()
