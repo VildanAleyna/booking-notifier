@@ -1,7 +1,9 @@
-
 name: Booking Notifier Bot
 
 on:
+  push:
+    branches:
+      - main          # main branch'a commit olunca tetiklenecek
   schedule:
     - cron: "*/1 * * * *"   # Her 1 dakikada bir çalışır (UTC saatiyle)
   workflow_dispatch:        # Elle başlatma seçeneği
