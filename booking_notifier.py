@@ -57,10 +57,11 @@ def check_mail():
                     first_url = urls[0] if urls else "link bulunamadı"
 
                     # Telegram mesajı
-                    message = f"Yeni Rezervasyonunuz bulunuyor!\nKonu: {subject}\nDetaylar: {first_url}"
+                    message = f"Yeni Rezervasyonunuz bulunuyor!"
                     send_telegram_message(message)
 
     mail.logout()
 
 if __name__ == "__main__":
     check_mail()
+
